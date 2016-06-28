@@ -13,6 +13,10 @@ var favicon = require('serve-favicon')
 
 var app = express();
 
+//moongo db connection
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://mrgru:emyeugru@ds023674.mlab.com:23674/mcaruser');
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -37,7 +41,9 @@ var server = app.listen(app.get('port'), function(){
 });
 
 var io = require('socket.io').listen(server);
+
+
 /**
  * Socket.io event handling
  */
-require('./app/socketHandler.js')(io, streams);
+require('./app/socketHandler.js')(io, streams,app);
