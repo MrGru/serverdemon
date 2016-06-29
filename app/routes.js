@@ -181,6 +181,7 @@ module.exports = function (app, streams) {
 		for (var i = 0; i < 8; i++)
 			phoneNew += possible.charAt(Math.floor(Math.random() * possible.length));
 		//Trung phone
+		console.log("ID: create new: " + req.body.id);
 		User.findOne({
 			id : req.body.id
 		}, function (err, user) {
@@ -191,9 +192,9 @@ module.exports = function (app, streams) {
 						password : req.body.password,
 						email : req.body.email,
 						phone : phoneNew,
-						id : request.body.id
+						id : req.body.id
 					});
-
+					
 				newUser.save(function (err) {
 					if (err) {
 						console.log(err);

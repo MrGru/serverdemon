@@ -7,13 +7,13 @@ var Schema = mongoose.Schema;
 // create a schema
 var userSchema = new Schema({
   name: String,
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true, unique: true },
+  username: String,
+  password: String,
   email: String,
   phone: String,
   created_at: Date,
   updated_at: Date,
-  id: String
+  id: { type: String, required: true, unique: true }
 });
 
 // custom method to add string to end of name
