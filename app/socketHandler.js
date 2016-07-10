@@ -51,7 +51,7 @@ module.exports = function(io, streams,app) {
     });
 
     client.on('startclient', function (details) {
-      User.findOne({id: reflected[text]}, function(err, user) {
+      User.find({id: reflected[text]}, function(err, user) {
         if(user){
           var otherClient = io.sockets.connected[clients[details.to]];
           details.from = reflected[text];
@@ -108,14 +108,36 @@ module.exports = function(io, streams,app) {
 
   var getStatus = function(req, res) {
       var clientid = clients[req.params.id];
-      //console.log("lien minh get user statys"+clientid+ " "+req.params.id);
       if(io.sockets.connected[clientid]!=undefined){
         res.send({status: 1});
       }else{
         res.send({status: -1});
       }
     };
+	
+	
+	//POST get call agent
+	var getCallAgent = function(req, res){
+	User.find({isSupport: 1}, function(err, users) {
+        if(users){
+			var userID ="";
+			 users.forEach(function(doc, index) { 
+					console.log(index + " key: " + doc.id) 
+					 var clientid = clients[doc.id];
+					  if(io.sockets.connected[clientid]!=undefined){
+						 userID = doc.id;
+					  }
+			});
+			console.log('phone call: ' + userID);
+			 res.send({phone: userID});
+        }else{
+          res.send({phone:""});
+        }
+
+      });
+	}
 
   app.get('/status/:id', getStatus);
+  app.post('/get_call_agent', getCallAgent);
 };
 

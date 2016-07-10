@@ -154,6 +154,7 @@ module.exports = function (app, streams) {
 				password : req.body.password,
 				email : req.body.email,
 				phone : req.body.phone,
+				isSupport: 0,
 				id : text
 			});
 		console.log("come here: " + req.body.name);
@@ -192,6 +193,7 @@ module.exports = function (app, streams) {
 						password : req.body.password,
 						email : req.body.email,
 						phone : phoneNew,
+						isSupport: 0,
 						id : req.body.id
 					});
 					

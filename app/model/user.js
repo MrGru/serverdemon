@@ -13,6 +13,7 @@ var userSchema = new Schema({
   phone: String,
   created_at: Date,
   updated_at: Date,
+  isSupport: Number,
   id: { type: String, required: true, unique: true }
 });
 
